@@ -1,4 +1,4 @@
-module gitlab.bitkub.io/bo/fireblocks-sdk-go
+module https://github.com/dzobbe/fireblocks-sdk-go
 
 go 1.16
 
