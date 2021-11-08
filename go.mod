@@ -1,4 +1,4 @@
-module https://github.com/dzobbe/fireblocks-sdk-go
+module github.com/dzobbe/fireblocks-sdk-go
 
 go 1.16
 
