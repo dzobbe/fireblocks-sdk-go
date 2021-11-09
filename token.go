@@ -16,7 +16,7 @@ type claims struct {
 	jwt.StandardClaims
 }
 
-func (r request) signJwt(path string, body interface{}) string {
+func (r Request) signJwt(path string, body interface{}) string {
 	var (
 		timestamp = time.Now()
 		nonce, _  = random.Int64()
