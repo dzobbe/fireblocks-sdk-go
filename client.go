@@ -14,7 +14,7 @@ type FireblocksSDK struct {
 	request request
 }
 
-type request struct {
+type Request struct {
 	options *options
 }
 
@@ -40,7 +40,7 @@ func NewClient(optionFuncs ...func(*options)) FireblocksSDK {
 	}
 	return FireblocksSDK{
 		options: options,
-		request: request{
+		request: Request{
 			options: options,
 		},
 	}
@@ -83,7 +83,7 @@ func WithContext(ctx context.Context) func(*options) {
 }
 
 
-func (r request) ExtGet(path string) ([]byte, error) {
+func (r Request) ExtGet(path string) ([]byte, error) {
 	client := resty.NewWithClient(r.options.hc)
 	client.SetTimeout(r.options.timeout)
 
@@ -109,7 +109,7 @@ func (r request) ExtGet(path string) ([]byte, error) {
 }
 
 
-func (r request) get(path string) ([]byte, error) {
+func (r Request) get(path string) ([]byte, error) {
 	client := resty.NewWithClient(r.options.hc)
 	client.SetTimeout(r.options.timeout)
 
@@ -134,7 +134,7 @@ func (r request) get(path string) ([]byte, error) {
 	return resp.Body(), nil
 }
 
-func (r request) post(path string, body interface{}, requestOptions *RequestOptions) ([]byte, error) {
+func (r Request) post(path string, body interface{}, requestOptions *RequestOptions) ([]byte, error) {
 	client := resty.NewWithClient(r.options.hc)
 	client.SetTimeout(r.options.timeout)
 
