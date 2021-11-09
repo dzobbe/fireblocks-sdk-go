@@ -82,6 +82,33 @@ func WithContext(ctx context.Context) func(*options) {
 	}
 }
 
+
+func (r request) ExtGet(path string) ([]byte, error) {
+	client := resty.NewWithClient(r.options.hc)
+	client.SetTimeout(r.options.timeout)
+
+	resp, err := client.R().
+		SetContext(r.options.ctx).
+		SetHeader("X-API-Key", r.options.apiKey).
+		SetHeader("Authorization", "Bearer "+r.signJwt(path, "")).
+		Get(r.options.apiUrl + path)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.IsError() {
+		var errResp map[string]interface{}
+		if err = json.Unmarshal(resp.Body(), &errResp); err != nil {
+			return nil, errors.New(string(resp.Body()))
+		}
+
+		return nil, errors.New(errResp["message"].(string))
+	}
+
+	return resp.Body(), nil
+}
+
+
 func (r request) get(path string) ([]byte, error) {
 	client := resty.NewWithClient(r.options.hc)
 	client.SetTimeout(r.options.timeout)
