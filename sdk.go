@@ -6,6 +6,13 @@ import (
 	"github.com/google/go-querystring/query"
 )
 
+
+
+func (f FireblocksSDK) GetAccounts() ([]error) {
+	_, err := f.request.get(fmt.Sprintf("/v1/vault/accounts"))
+	return err
+}
+
 /*
 CreateVaultAccount Creates a new vault account
 @param name A name for the new vault account
