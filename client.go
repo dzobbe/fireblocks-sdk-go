@@ -11,7 +11,7 @@ import (
 
 type FireblocksSDK struct {
 	options *options
-	request request
+	request Request
 }
 
 type Request struct {
@@ -166,7 +166,7 @@ func (r Request) post(path string, body interface{}, requestOptions *RequestOpti
 	return resp.Body(), nil
 }
 
-func (r request) put(path string, body interface{}) ([]byte, error) {
+func (r Request) put(path string, body interface{}) ([]byte, error) {
 	client := resty.NewWithClient(r.options.hc)
 	client.SetTimeout(r.options.timeout)
 
